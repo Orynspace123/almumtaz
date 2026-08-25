@@ -13,7 +13,7 @@ export default function About() {
   return (
     <section className="sec" id="company">
       <div className="container">
-        <SectionHead index="04" title="The company." />
+        <SectionHead index="05" title="The company." />
         <div className="about__grid">
           <motion.div variants={rise} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }}>
             <p className="about__ar">شركة الاختيار الممتاز للتجارة</p>

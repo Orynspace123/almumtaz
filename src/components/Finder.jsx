@@ -95,6 +95,11 @@ export default function Finder() {
                 <WhatsAppIcon size={17} /> Send on WhatsApp
               </a>
             </div>
+
+            <p className="finder__tip">
+              FASTEST ROUTE: send a <strong>photo of the part</strong> (or its number plate /
+              chassis number) on WhatsApp — the counter identifies it from the picture.
+            </p>
           </div>
         </motion.div>
       </div>

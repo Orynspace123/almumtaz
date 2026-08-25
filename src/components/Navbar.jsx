@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CONTACT, buildWhatsAppUrl } from '../data/content';
+import { CONTACT, buildWhatsAppUrl, WA_DEFAULT_MSG } from '../data/content';
 import { WhatsAppIcon } from './icons';
 
 const LINKS = [
@@ -28,8 +28,8 @@ export default function Navbar() {
         <a href="#home" className="navbar__logo" aria-label="Al Mumtaz Trading Co. — home">
           <span className="navbar__logo-plate">AM</span>
           <span className="navbar__logo-text">
-            <span className="navbar__logo-name">Al Mumtaz</span>
-            <span className="navbar__logo-sub">TRADING CO. — DAMMAM</span>
+            <span className="navbar__logo-name">Al Ikhtiar Al Mumtaz</span>
+            <span className="navbar__logo-sub">TRADING CO. — SPARE PARTS &amp; WORKSHOP, DAMMAM</span>
           </span>
         </a>
 
@@ -39,7 +39,7 @@ export default function Navbar() {
 
         <a
           className="btn btn--fill navbar__cta navbar__cta--desktop"
-          href={buildWhatsAppUrl("Hi Al Mumtaz, I'd like a quote.")}
+          href={buildWhatsAppUrl(WA_DEFAULT_MSG)}
           target="_blank" rel="noopener"
         >
           <WhatsAppIcon size={15} /> WhatsApp

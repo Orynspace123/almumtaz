@@ -39,7 +39,7 @@ export default function Contact() {
   return (
     <section className="sec" id="contact">
       <div className="container">
-        <SectionHead index="05" title="Bring us the truck." />
+        <SectionHead index="06" title="Bring us the truck." />
 
         <div className="contact__grid">
           <motion.div

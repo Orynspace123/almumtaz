@@ -12,6 +12,10 @@ export const CONTACT = {
   addressShort: 'Thaslin, near Souq Al Ghanam — Second Industrial Area, Dammam',
 };
 
+// Default pre-filled WhatsApp message — parts-counter language, not
+// logistics language ("quote" reads like freight forwarding).
+export const WA_DEFAULT_MSG = 'Hi Al Mumtaz, I need a spare part / repair for my truck.';
+
 export const BRANDS = [
   'Mercedes-Benz', 'Volvo', 'MAN', 'Iveco', 'Scania', 'DAF', 'Renault',
   'Shacman', 'Sino Truck', 'Ashok Leyland', 'Tata', 'BPW', 'ROR', 'SAF',

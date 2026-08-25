@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { buildWhatsAppUrl } from '../data/content';
+import { buildWhatsAppUrl, WA_DEFAULT_MSG } from '../data/content';
 import { WhatsAppIcon, ArrowRightIcon } from './icons';
 import TruckSchematic from './TruckSchematic';
 
@@ -58,10 +58,10 @@ export default function Hero() {
           <motion.div className="hero__actions" variants={rise}>
             <a
               className="btn btn--accent btn--lg"
-              href={buildWhatsAppUrl("Hi Al Mumtaz, I'd like a quote.")}
+              href={buildWhatsAppUrl(WA_DEFAULT_MSG)}
               target="_blank" rel="noopener"
             >
-              <WhatsAppIcon size={17} /> Get a quote
+              <WhatsAppIcon size={17} /> Ask for a part
             </a>
             <a className="btn btn--lg" href="#finder">
               Find your fix <span className="btn__arrow"><ArrowRightIcon size={15} /></span>

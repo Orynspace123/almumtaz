@@ -4,9 +4,11 @@ import BrandMarquee from './components/BrandMarquee';
 import Finder from './components/Finder';
 import Services from './components/Services';
 import Why from './components/Why';
+import Gallery from './components/Gallery';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 export default function App() {
   return (
@@ -19,10 +21,12 @@ export default function App() {
         <Finder />
         <Services />
         <Why />
+        <Gallery />
         <About />
         <Contact />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </>
   );
 }
