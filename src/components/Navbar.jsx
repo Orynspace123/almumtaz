@@ -5,9 +5,9 @@ import { WhatsAppIcon } from './icons';
 
 const LINKS = [
   { href: '#brands', label: 'Brands' },
-  { href: '#finder', label: 'Find Your Fix' },
+  { href: '#finder', label: 'Find your fix' },
   { href: '#services', label: 'Services' },
-  { href: '#why', label: 'Why Us' },
+  { href: '#company', label: 'Company' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -26,26 +26,24 @@ export default function Navbar() {
     <header className={`navbar${scrolled ? ' is-scrolled' : ''}`}>
       <div className="navbar__inner">
         <a href="#home" className="navbar__logo" aria-label="Al Mumtaz Trading Co. — home">
-          <span className="navbar__logo-mark">AM</span>
-          <span className="navbar__logo-text">AL <em>MUMTAZ</em></span>
+          <span className="navbar__logo-plate">AM</span>
+          <span className="navbar__logo-text">
+            <span className="navbar__logo-name">Al Mumtaz</span>
+            <span className="navbar__logo-sub">TRADING CO. — DAMMAM</span>
+          </span>
         </a>
 
         <nav className="navbar__links">
           {LINKS.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
         </nav>
 
-        <div className="navbar__actions">
-          <motion.a
-            className="btn btn--accent"
-            href={buildWhatsAppUrl("Hi Al Mumtaz, I'd like a quote.")}
-            target="_blank" rel="noopener"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-          >
-            <WhatsAppIcon /> WhatsApp
-          </motion.a>
-        </div>
+        <a
+          className="btn btn--fill navbar__cta navbar__cta--desktop"
+          href={buildWhatsAppUrl("Hi Al Mumtaz, I'd like a quote.")}
+          target="_blank" rel="noopener"
+        >
+          <WhatsAppIcon size={15} /> WhatsApp
+        </a>
 
         <button
           className={`navbar__burger${open ? ' is-open' : ''}`}
@@ -59,15 +57,17 @@ export default function Navbar() {
           {open && (
             <motion.nav
               className="navbar__mobile"
-              initial={{ opacity: 0, y: -12 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             >
               {LINKS.map((l) => (
                 <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
               ))}
-              <a href={`tel:${CONTACT.phone2}`} onClick={() => setOpen(false)}>Call: {CONTACT.phone2Display}</a>
+              <a href={`tel:${CONTACT.phone2}`} onClick={() => setOpen(false)}>
+                CALL THE WORKSHOP → {CONTACT.phone2Display}
+              </a>
             </motion.nav>
           )}
         </AnimatePresence>

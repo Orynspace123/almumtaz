@@ -3,11 +3,18 @@
 Marketing site for **Al Ikhtiar Al Mumtaz Trading Company** (شركة الاختيار الممتاز للتجارة) —
 a truck & trailer spare parts and repair workshop in Dammam's Second Industrial Area.
 
-Built with **React 19 + Vite + Framer Motion**. Design system generated with the
-[UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) skill (see
-`design-system/al-mumtaz-trading-co/MASTER.md` for the full spec: palette, type,
-spacing, motion rules) — light "Trust & Authority" corporate palette (navy + amber),
-with a dark hero and footer for impact.
+Built with **React 19 + Vite + Framer Motion**.
+
+**Art direction:** industrial spec-sheet. Paper ground, ink strokes, safety orange;
+poster type (Anton) + Archivo + IBM Plex Mono for technical labels; hard 2px borders
+and numbered sections instead of soft-shadow cards. Bespoke assets: an animated
+blueprint truck schematic in the hero (callouts point at the systems the workshop
+services), the finder styled as a workshop job card, and the company facts on a
+machine data plate. The UX/accessibility rules in
+`design-system/al-mumtaz-trading-co/MASTER.md` (generated with
+[UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)) still
+apply — contrast, touch targets, reduced-motion, focus states — but the visual
+direction intentionally departs from its generic corporate palette.
 
 ## The idea
 
