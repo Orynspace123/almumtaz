@@ -91,7 +91,11 @@ export const STRINGS = {
     'shop.sub': 'Not a virtual storefront — a stocked counter and a working repair floor you can walk into today.',
 
     // testimonials
-    'reviews.title': 'What fleets say.',
+    'reviews.title': 'What drivers say.',
+    'reviews.sub': 'Reviews left on our Google listing by the drivers and fleet buyers who use the counter.',
+    'reviews.source': 'Google review',
+    'reviews.translated': 'translated from {l}',
+    'reviews.readAll': 'Read all reviews on Google',
 
     // company
     'company.title': 'The company.',
@@ -229,7 +233,11 @@ export const STRINGS = {
     'shop.title': 'المحل.',
     'shop.sub': 'ليس متجراً افتراضياً — محل مجهز وورشة عاملة يمكنك زيارتها اليوم.',
 
-    'reviews.title': 'ماذا يقول عملاؤنا.',
+    'reviews.title': 'ماذا يقول السائقون.',
+    'reviews.sub': 'تقييمات كتبها على صفحتنا في جوجل السائقون ومشترو الأساطيل الذين يتعاملون معنا.',
+    'reviews.source': 'تقييم على جوجل',
+    'reviews.translated': 'مترجم من {l}',
+    'reviews.readAll': 'اقرأ جميع التقييمات على جوجل',
 
     'company.title': 'الشركة.',
     'company.lede': 'مسجلة باسم شركة الاختيار الممتاز للتجارة — ومعروفة ببساطة باسم «الممتاز». نوفر ونركب قطع الغيار لماركات الشاحنات التي تنقل بضائع المملكة، ونصلح ما لا يكفيه محل قطع الغيار وحده: الهيدروليك، الفرامل، التربو، القير، ومضخات الديزل. إذا كان يعطل شاحنتك، فهو مسؤوليتنا.',

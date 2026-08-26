@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { TESTIMONIALS } from '../data/content';
+import { TESTIMONIALS, MAPS_URL } from '../data/content';
 import SectionHead from './SectionHead';
+import { ArrowRightIcon } from './icons';
 import { useLang } from '../i18n/LangContext';
 
 const rise = {
@@ -8,8 +9,8 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 };
 
-// Renders only real customer quotes supplied in content.js. Stays hidden
-// while the list is empty — an invented review is worse than no review.
+// Real Google reviews only, quoted from the shop's listing. No star
+// rating is shown — see the note on TESTIMONIALS in content.js.
 export default function Testimonials() {
   const { t, isAr } = useLang();
   if (!TESTIMONIALS.length) return null;
@@ -17,22 +18,30 @@ export default function Testimonials() {
   return (
     <section className="sec" id="reviews">
       <div className="container">
-        <SectionHead index="06" title={t('reviews.title')} />
+        <SectionHead index="06" title={t('reviews.title')} sub={t('reviews.sub')} />
+
         <motion.div
           className="reviews"
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
-          initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
+          initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
         >
           {TESTIMONIALS.map((r) => (
-            <motion.figure className="review" key={r.name + r.company} variants={rise}>
+            <motion.figure className="review" key={r.name} variants={rise}>
               <blockquote>{isAr && r.quoteAr ? r.quoteAr : r.quote}</blockquote>
               <figcaption>
                 <strong>{r.name}</strong>
-                <span>{isAr && r.companyAr ? r.companyAr : r.company}</span>
+                <span>
+                  {t('reviews.source')}
+                  {r.lang ? ` · ${t('reviews.translated', { l: r.lang })}` : ''}
+                </span>
               </figcaption>
             </motion.figure>
           ))}
         </motion.div>
+
+        <a className="reviews__link" href={MAPS_URL} target="_blank" rel="noopener">
+          {t('reviews.readAll')} <ArrowRightIcon size={15} />
+        </a>
       </div>
     </section>
   );

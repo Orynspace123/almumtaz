@@ -20,19 +20,20 @@ export const CONTACT = {
 export const MAPS_URL = 'https://maps.app.goo.gl/sb3KaUd2whfTkLTQA';
 
 // ---------------------------------------------------------------------
-// OPENING HOURS  ⚠️ PLACEHOLDER — CONFIRM WITH THE SHOP BEFORE LAUNCH
+// OPENING HOURS — confirmed by the shop: 08:00–20:00 Saturday to
+// Thursday, closed Friday.
 // Drives the live "Open now / Closed" badge. 24h clock, Riyadh time.
 // day: 0=Sunday … 6=Saturday. Each day is a list of open ranges, so a
-// midday break is just two ranges. An empty list = closed all day.
+// midday break would just be two ranges. An empty list = closed all day.
 // ---------------------------------------------------------------------
 export const HOURS = {
-  0: [['08:00', '12:00'], ['16:00', '20:00']], // Sun
-  1: [['08:00', '12:00'], ['16:00', '20:00']], // Mon
-  2: [['08:00', '12:00'], ['16:00', '20:00']], // Tue
-  3: [['08:00', '12:00'], ['16:00', '20:00']], // Wed
-  4: [['08:00', '12:00'], ['16:00', '20:00']], // Thu
-  5: [],                                        // Fri — closed
-  6: [['08:00', '12:00'], ['16:00', '20:00']], // Sat
+  0: [['08:00', '20:00']], // Sun
+  1: [['08:00', '20:00']], // Mon
+  2: [['08:00', '20:00']], // Tue
+  3: [['08:00', '20:00']], // Wed
+  4: [['08:00', '20:00']], // Thu
+  5: [],                   // Fri — closed
+  6: [['08:00', '20:00']], // Sat
 };
 export const TIMEZONE = 'Asia/Riyadh';
 
@@ -51,13 +52,65 @@ export const BRANDS = [
 export const PART_BRANDS = [];
 
 // ---------------------------------------------------------------------
-// TESTIMONIALS — real customer quotes only.
-// Empty on purpose: invented reviews are the fastest way to lose a B2B
-// customer's trust (and are illegal to publish as genuine in many places).
-// Add real ones and the section appears. Shape:
-//   { quote, quoteAr, name, company, companyAr }
+// TESTIMONIALS — real Google reviews, quoted verbatim from the shop's
+// Google Business listing. Several were written in Arabic, Hindi or
+// Malayalam; `quote` is Google's own English translation and `lang`
+// names the original language so the site can say so.
+//
+// Deliberately NOT shown: a star rating or review average. Not every
+// review in the listing is five stars, so publishing one would be a
+// claim we can't stand behind. The quotes speak for themselves.
 // ---------------------------------------------------------------------
-export const TESTIMONIALS = [];
+export const TESTIMONIALS = [
+  {
+    quote: 'They have all the parts needed for Chinese, Mercedes, Volvo, MAN, Renault, and Iveco trucks, and trailers in general. Also, Mr. Arshad is extremely professional and respectful. May God grant them success.',
+    quoteAr: 'لديهم جميع القطع اللازمة للشاحنات الصينية ومرسيدس وفولفو ومان ورينو وإيفيكو، والمقطورات بشكل عام. كما أن الأستاذ أرشد محترف للغاية ومحترم. وفقهم الله.',
+    name: 'Aseel Al-faqih',
+    lang: 'Arabic',
+  },
+  {
+    quote: "Everything they have is of good quality and very cheap. I have found things here at very cheap prices that I couldn't find even after searching for a long time. They are very friendly to us in every way, both in their speech and actions.",
+    quoteAr: 'كل ما لديهم ذو جودة عالية وبأسعار زهيدة جداً. وجدت هنا قطعاً بأسعار رخيصة جداً لم أجدها بعد بحث طويل. وهم ودودون معنا في كل شيء، قولاً وفعلاً.',
+    name: 'Sahir Jabbar',
+    lang: 'Malayalam',
+  },
+  {
+    quote: 'Reasonable price, excellent service, especially from Mr. Arshad and Mr. Anas; they are both very kind people.',
+    quoteAr: 'أسعار معقولة وخدمة ممتازة، خاصة من الأستاذ أرشد والأستاذ أنس؛ كلاهما شخصان لطيفان جداً.',
+    name: 'M M Nissar',
+    lang: 'Arabic',
+  },
+  {
+    quote: 'Excellent location for truck services, repairs including starter motors, alternators, and all truck spare parts.',
+    quoteAr: 'موقع ممتاز لخدمات الشاحنات والإصلاحات، بما في ذلك سلف التشغيل والدينمو وجميع قطع غيار الشاحنات.',
+    name: 'Asim Othman',
+    lang: 'Arabic',
+  },
+  {
+    quote: 'All trailer spare parts available. Valve service and hydraulic crimping.',
+    quoteAr: 'جميع قطع غيار المقطورات متوفرة. خدمة الصمامات وكبس الخراطيم الهيدروليكية.',
+    name: 'Raj Magar',
+    lang: 'Hindi',
+  },
+  {
+    quote: 'Good service and good truck parts. Thanks for the service, Al Ikhtiar Al Mumtaz.',
+    quoteAr: 'خدمة جيدة وقطع غيار شاحنات جيدة. شكراً على الخدمة، الاختيار الممتاز.',
+    name: 'Rafeek Bin Hasbulla',
+    lang: null,
+  },
+  {
+    quote: 'Very good parts and cheap rates.',
+    quoteAr: 'قطع غيار ممتازة وأسعار مناسبة.',
+    name: 'Omi DK',
+    lang: null,
+  },
+  {
+    quote: 'Arshad and Anas, may God bless them, their treatment of others is excellent and they are very hardworking. We wish them success.',
+    quoteAr: 'أرشد وأنس، بارك الله فيهما، تعاملهما مع الناس ممتاز وهما مجتهدان جداً. نتمنى لهما التوفيق.',
+    name: 'Waleed Al-Sheikh',
+    lang: 'Arabic',
+  },
+];
 
 export const PARTS = ['Truck Spare Parts', 'Trailer Spare Parts'];
 

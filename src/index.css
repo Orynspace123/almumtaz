@@ -440,13 +440,32 @@ body::before {
 }
 
 /* ---------- testimonials ---------- */
-.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.review { margin: 0; border: 2px solid var(--ink); padding: 24px; background: var(--paper-2); }
-.review blockquote { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink); }
-.review blockquote::before { content: '“'; font-family: var(--font-poster); font-size: 42px; color: var(--orange); line-height: 0; vertical-align: -14px; margin-inline-end: 4px; }
-.review figcaption { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-faint); font-family: var(--font-mono); font-size: 12.5px; }
-.review figcaption strong { display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.reviews {
+  columns: 3; column-gap: 16px;
+}
+.review {
+  margin: 0 0 16px; border: 2px solid var(--ink); padding: 22px 24px; background: var(--paper-2);
+  break-inside: avoid;
+}
+.review blockquote { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--ink); }
+.review blockquote::before {
+  content: '“'; font-family: var(--font-poster); font-size: 40px; color: var(--orange);
+  line-height: 0; vertical-align: -13px; margin-inline-end: 5px;
+}
+.review figcaption {
+  margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line-faint);
+  font-family: var(--font-mono); font-size: 12px;
+}
+.review figcaption strong { display: block; text-transform: uppercase; letter-spacing: 0.05em; font-size: 12.5px; }
 .review figcaption span { color: var(--ink-soft); }
+.reviews__link {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 8px;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink);
+  border-bottom: 2px solid var(--orange); padding-bottom: 3px;
+  transition: color 150ms var(--ease);
+}
+.reviews__link:hover { color: var(--orange); }
 
 /* ---------- find us ---------- */
 .findus__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 4vw, 48px); align-items: stretch; }
@@ -525,6 +544,7 @@ body::before {
   .gallery__item:first-child { grid-column: span 2; grid-row: auto; }
   .partsearch { grid-template-columns: 1fr; }
   .findus__grid { grid-template-columns: 1fr; }
+  .reviews { columns: 2; }
   .findus__map { min-height: 240px; }
 
   /* sticky action bar takes over from the floating bubble on phones */
@@ -560,6 +580,7 @@ body::before {
   .hero { padding-top: 120px; }
   .gallery { grid-template-columns: 1fr; }
   .gallery__item:first-child { grid-column: auto; }
+  .reviews { columns: 1; }
   .wa-float { width: 54px; height: 54px; right: 16px; bottom: 16px; }
   .navbar__logo-name { font-size: 15px; }
   .navbar__logo-sub { display: none; }
