@@ -1,4 +1,5 @@
 import { BRANDS } from '../data/content';
+import { useLang } from '../i18n/LangContext';
 
 function Track() {
   return (
@@ -16,10 +17,11 @@ function Track() {
 // Dark band of oversized brand names — the shop's own poster line,
 // "Brands. All in one place.", as a running strip.
 export default function BrandMarquee() {
+  const { t } = useLang();
   return (
     <section className="brands" id="brands">
-      <p className="brands__label">Brands — all in one place · parts &amp; service coverage</p>
-      <div className="marquee" aria-label="Truck and trailer brands we cover">
+      <p className="brands__label">{t('brands.label')}</p>
+      <div className="marquee" aria-label={t('brands.label')}>
         <div className="marquee__track">
           <Track /><Track />
         </div>

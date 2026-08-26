@@ -3,48 +3,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BRANDS, FINDER_SERVICES, buildWhatsAppUrl } from '../data/content';
 import { WhatsAppIcon } from './icons';
 import SectionHead from './SectionHead';
+import PartSearch from './PartSearch';
+import { useLang } from '../i18n/LangContext';
 
 // The site's working tool, styled as a workshop job card: pick brand +
 // problem, it writes the WhatsApp message and sends it to the counter.
 export default function Finder() {
+  const { t } = useLang();
   const [brand, setBrand] = useState(null);
   const [service, setService] = useState(null);
 
   const ready = Boolean(brand && service);
-  const message = ready
-    ? `Hi Al Mumtaz, I have a ${brand} and need: ${service}. Can you help?`
-    : null;
+  const message = ready ? t('finder.msg', { b: brand, s: service }) : null;
 
-  let previewText = 'AWAITING INPUT — select a brand and a service to draft your request.';
-  if (brand && !service) previewText = `BRAND: ${brand}. Now select the service you need.`;
-  if (!brand && service) previewText = `SERVICE: ${service}. Now select your brand.`;
+  let previewText = t('finder.awaiting');
+  if (brand && !service) previewText = t('finder.needService', { b: brand });
+  if (!brand && service) previewText = t('finder.needBrand', { s: service });
   if (ready) previewText = `"${message}"`;
+
+  const tip = t('finder.tip');
+  const tipStrong = t('finder.tipStrong');
+  const [tipA, tipB] = tip.includes(tipStrong) ? tip.split(tipStrong) : [tip, ''];
 
   return (
     <section className="sec" id="finder">
       <div className="container">
-        <SectionHead
-          index="01"
-          title="Find your fix."
-          sub="Tell us the truck and the problem — we draft the message, one tap sends it to the workshop's WhatsApp. No forms, no call centre."
-        />
+        <SectionHead index="01" title={t('finder.title')} sub={t('finder.sub')} />
 
         <motion.div
           className="finder__card"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="finder__card-head">
-            <span>REPAIR ORDER — <em>DRAFT</em></span>
-            <span>AL MUMTAZ · DAMMAM · SAME-DAY REPLY</span>
+            <span>{t('finder.head')}<em>{t('finder.draft')}</em></span>
+            <span>{t('finder.headRight')}</span>
           </div>
 
           <div className="finder__body">
             <div className="finder__step">
-              <span className="finder__step-label"><em>STEP 01</em> Your truck brand</span>
-              <div className="finder__chips" role="group" aria-label="Select your truck brand">
+              <span className="finder__step-label">
+                <em>{t('finder.step')} 01</em> {t('finder.step1')}
+              </span>
+              <div className="finder__chips" role="group" aria-label={t('finder.step1')}>
                 {BRANDS.map((b) => (
                   <button
                     key={b} type="button"
@@ -58,8 +61,10 @@ export default function Finder() {
             </div>
 
             <div className="finder__step">
-              <span className="finder__step-label"><em>STEP 02</em> What you need</span>
-              <div className="finder__chips" role="group" aria-label="Select the service you need">
+              <span className="finder__step-label">
+                <em>{t('finder.step')} 02</em> {t('finder.step2')}
+              </span>
+              <div className="finder__chips" role="group" aria-label={t('finder.step2')}>
                 {FINDER_SERVICES.map((s) => (
                   <button
                     key={s} type="button"
@@ -92,16 +97,17 @@ export default function Finder() {
                 target="_blank" rel="noopener"
                 aria-disabled={!ready}
               >
-                <WhatsAppIcon size={17} /> Send on WhatsApp
+                <WhatsAppIcon size={17} /> {t('finder.send')}
               </a>
             </div>
 
             <p className="finder__tip">
-              FASTEST ROUTE: send a <strong>photo of the part</strong> (or its number plate /
-              chassis number) on WhatsApp — the counter identifies it from the picture.
+              {tipA}{tipB !== '' ? <strong>{tipStrong}</strong> : null}{tipB}
             </p>
           </div>
         </motion.div>
+
+        <PartSearch />
       </div>
     </section>
   );

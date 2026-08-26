@@ -32,11 +32,28 @@ npm run build     # production build to dist/
 npm run preview   # serve the production build locally
 ```
 
+## What to edit (all in `src/data/content.js`)
+
+| Constant | What it controls |
+|----------|------------------|
+| `CONTACT` | Phone numbers, WhatsApp, email, address (EN + AR) |
+| `MAPS_URL` | The shop's Google Maps pin — used by every directions link |
+| `HOURS` | **Placeholder!** Drives the live "Open now / Closed" badge and the hours table |
+| `PART_BRANDS` | Component brands stocked (Fleetguard, Mann, Wabco…). Empty = section hidden |
+| `TESTIMONIALS` | Real customer quotes only. Empty = section hidden |
+| `BRANDS`, `PARTS`, `REPAIRS` | Truck brands and the service list |
+
+Arabic translations live in `src/i18n/strings.js` — every visible string has an
+`en` and an `ar` entry. `?lang=ar` opens the site in Arabic directly.
+
 ## ⚠️ Before this goes live
 
 Everything below lives in one place — `src/data/content.js` — edit there and it updates
 every link on the site:
 
+- **Opening hours** — `HOURS` in `content.js` is a GUESS (Sat–Thu 08:00–12:00 &
+  16:00–20:00, Friday closed). The live open/closed badge is only as honest as
+  this data, so confirm the real hours with the shop first.
 - **Phone numbers** — transcribed from a photo of the shop's promo poster, not confirmed.
   Verify the real digits before publishing.
 - **C.R. (commercial registration) number** — not included; add if you want it displayed.

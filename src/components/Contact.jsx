@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CONTACT, buildWhatsAppUrl } from '../data/content';
-import { WhatsAppIcon, PhoneIcon, MailIcon, PinIcon, ArrowRightIcon } from './icons';
+import { CONTACT, MAPS_URL, buildWhatsAppUrl } from '../data/content';
+import { WhatsAppIcon, PhoneIcon, MailIcon, PinIcon } from './icons';
 import SectionHead from './SectionHead';
+import { useLang } from '../i18n/LangContext';
 
 const list = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 const rise = {
@@ -10,43 +11,46 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 };
 
-const ROWS = [
-  { Icon: WhatsAppIcon, label: 'WhatsApp — fastest', value: CONTACT.whatsappDisplay, href: buildWhatsAppUrl() },
-  { Icon: PhoneIcon, label: 'Call the workshop', value: CONTACT.phone2Display, href: `tel:${CONTACT.phone2}` },
-  { Icon: MailIcon, label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-  {
-    Icon: PinIcon, label: 'Find the shop', value: CONTACT.addressShort,
-    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Al Ikhtiar Al Mumtaz Trading, Thaslin, Second Industrial Area, Dammam')}`,
-  },
-];
-
 export default function Contact() {
+  const { t, isAr } = useLang();
   const [note, setNote] = useState('');
 
+  const rows = [
+    { Icon: WhatsAppIcon, label: t('contact.wa'), value: CONTACT.whatsappDisplay, href: buildWhatsAppUrl() },
+    { Icon: PhoneIcon, label: t('contact.call'), value: CONTACT.phone2Display, href: `tel:${CONTACT.phone2}` },
+    { Icon: MailIcon, label: t('contact.email'), value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+    { Icon: PinIcon, label: t('contact.find'), value: isAr ? CONTACT.addressShortAr : CONTACT.addressShort, href: MAPS_URL },
+  ];
+
+  // The form hands off to WhatsApp rather than email: it's where the shop
+  // actually answers, and it works on a phone with no mail app set up.
   function handleSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
-    const name = data.get('name');
-    const phone = data.get('phone');
-    const brand = data.get('brand');
-    const message = data.get('message');
-    const subject = `Website enquiry from ${name}`;
-    const body = `Name: ${name}\nPhone: ${phone}\nBrand: ${brand || '-'}\n\n${message}`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setNote('OPENING YOUR EMAIL APP…');
+    const name = (data.get('name') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const brand = (data.get('brand') || '').toString().trim();
+    const message = (data.get('message') || '').toString().trim();
+
+    const lines = isAr
+      ? [`مرحباً الممتاز،`, `الاسم: ${name}`, `الجوال: ${phone}`, brand ? `المركبة: ${brand}` : null, ``, message]
+      : [`Hi Al Mumtaz,`, `Name: ${name}`, `Phone: ${phone}`, brand ? `Vehicle: ${brand}` : null, ``, message];
+
+    window.open(buildWhatsAppUrl(lines.filter((l) => l !== null).join('\n')), '_blank', 'noopener');
+    setNote(t('form.note'));
   }
 
   return (
     <section className="sec" id="contact">
       <div className="container">
-        <SectionHead index="06" title="Bring us the truck." />
+        <SectionHead index="08" title={t('contact.title')} />
 
         <div className="contact__grid">
           <motion.div
             className="contact__rows"
             variants={list} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
           >
-            {ROWS.map(({ Icon, label, value, href }) => (
+            {rows.map(({ Icon, label, value, href }) => (
               <motion.a className="contact__row" key={label} href={href} target="_blank" rel="noopener" variants={rise}>
                 <div>
                   <div className="contact__row-label">{label}</div>
@@ -59,22 +63,22 @@ export default function Contact() {
 
           <motion.form
             className="jobform" onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}
+            initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="jobform__head">
-              <span>ENQUIRY FORM</span>
-              <span><em>REPLY SAME DAY</em></span>
+              <span>{t('form.head')}</span>
+              <span><em>{t('form.headRight')}</em></span>
             </div>
             <div className="jobform__body">
               <div className="jobform__row">
-                <label>Name <input type="text" name="name" required /></label>
-                <label>Phone <input type="tel" name="phone" required /></label>
+                <label>{t('form.name')} <input type="text" name="name" required /></label>
+                <label>{t('form.phone')} <input type="tel" name="phone" required /></label>
               </div>
-              <label>Truck / trailer brand <input type="text" name="brand" placeholder="e.g. Volvo FH16" /></label>
-              <label>What do you need? <textarea name="message" rows={3} required placeholder="Spare part, or the issue you're facing" /></label>
-              <button type="submit" className="btn btn--fill">
-                Send message <span className="btn__arrow"><ArrowRightIcon size={14} /></span>
+              <label>{t('form.brand')} <input type="text" name="brand" placeholder={t('form.brandPh')} /></label>
+              <label>{t('form.need')} <textarea name="message" rows={3} required placeholder={t('form.needPh')} /></label>
+              <button type="submit" className="btn btn--wa">
+                <WhatsAppIcon size={16} /> {t('form.submit')}
               </button>
               <p className="jobform__note">{note}</p>
             </div>

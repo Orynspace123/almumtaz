@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { PARTS, REPAIRS } from '../data/content';
 import SectionHead from './SectionHead';
+import { useLang } from '../i18n/LangContext';
 
 const list = { hidden: {}, show: { transition: { staggerChildren: 0.045 } } };
 const row = {
@@ -21,25 +22,20 @@ function SpecList({ items, startAt }) {
   );
 }
 
-// The full capability list as a numbered spec sheet — 12 lines,
-// continuous numbering across both groups.
 export default function Services() {
+  const { t } = useLang();
   return (
     <section className="sec" id="services">
       <div className="container">
-        <SectionHead
-          index="02"
-          title="From the part to the full repair."
-          sub="Two supply lines and ten in-house repair services. Most jobs sourced, diagnosed and fixed the same day — parts counter and workshop share one roof."
-        />
+        <SectionHead index="02" title={t('services.title')} sub={t('services.sub')} />
 
         <div className="services__cols">
           <div>
-            <h3 className="services__group-title"><em>A</em> — PARTS SUPPLY</h3>
+            <h3 className="services__group-title"><em>A</em> {t('services.groupA')}</h3>
             <SpecList items={PARTS} startAt={1} />
           </div>
           <div>
-            <h3 className="services__group-title"><em>B</em> — WORKSHOP REPAIRS</h3>
+            <h3 className="services__group-title"><em>B</em> {t('services.groupB')}</h3>
             <SpecList items={REPAIRS} startAt={PARTS.length + 1} />
           </div>
         </div>

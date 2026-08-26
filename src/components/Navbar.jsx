@@ -2,16 +2,21 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONTACT, buildWhatsAppUrl, WA_DEFAULT_MSG } from '../data/content';
 import { WhatsAppIcon } from './icons';
+import LangToggle from './LangToggle';
+import OpenStatus from './OpenStatus';
+import { useLang } from '../i18n/LangContext';
 
 const LINKS = [
-  { href: '#brands', label: 'Brands' },
-  { href: '#finder', label: 'Find your fix' },
-  { href: '#services', label: 'Services' },
-  { href: '#company', label: 'Company' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#brands', key: 'nav.brands' },
+  { href: '#finder', key: 'nav.finder' },
+  { href: '#services', key: 'nav.services' },
+  { href: '#shop', key: 'nav.shop' },
+  { href: '#company', key: 'nav.company' },
+  { href: '#contact', key: 'nav.contact' },
 ];
 
 export default function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,29 +30,32 @@ export default function Navbar() {
   return (
     <header className={`navbar${scrolled ? ' is-scrolled' : ''}`}>
       <div className="navbar__inner">
-        <a href="#home" className="navbar__logo" aria-label="Al Mumtaz Trading Co. — home">
+        <a href="#home" className="navbar__logo" aria-label="Al Ikhtiar Al Mumtaz Trading Co.">
           <span className="navbar__logo-plate">AM</span>
           <span className="navbar__logo-text">
-            <span className="navbar__logo-name">Al Ikhtiar Al Mumtaz</span>
-            <span className="navbar__logo-sub">TRADING CO. — SPARE PARTS &amp; WORKSHOP, DAMMAM</span>
+            <span className="navbar__logo-name">{t('hero.name')}</span>
+            <span className="navbar__logo-sub">{t('hero.sub')}</span>
           </span>
         </a>
 
         <nav className="navbar__links">
-          {LINKS.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
+          {LINKS.map((l) => <a key={l.href} href={l.href}>{t(l.key)}</a>)}
         </nav>
 
-        <a
-          className="btn btn--fill navbar__cta navbar__cta--desktop"
-          href={buildWhatsAppUrl(WA_DEFAULT_MSG)}
-          target="_blank" rel="noopener"
-        >
-          <WhatsAppIcon size={15} /> WhatsApp
-        </a>
+        <div className="navbar__actions">
+          <LangToggle />
+          <a
+            className="btn btn--wa navbar__cta navbar__cta--desktop"
+            href={buildWhatsAppUrl(WA_DEFAULT_MSG)}
+            target="_blank" rel="noopener"
+          >
+            <WhatsAppIcon size={15} /> {t('nav.whatsapp')}
+          </a>
+        </div>
 
         <button
           className={`navbar__burger${open ? ' is-open' : ''}`}
-          aria-label="Toggle menu" aria-expanded={open}
+          aria-label="Menu" aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
           <span /><span /><span />
@@ -63,11 +71,12 @@ export default function Navbar() {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             >
               {LINKS.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
+                <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{t(l.key)}</a>
               ))}
               <a href={`tel:${CONTACT.phone2}`} onClick={() => setOpen(false)}>
-                CALL THE WORKSHOP → {CONTACT.phone2Display}
+                {t('nav.callShop')} → {CONTACT.phone2Display}
               </a>
+              <div className="navbar__mobile-status"><OpenStatus compact /></div>
             </motion.nav>
           )}
         </AnimatePresence>
