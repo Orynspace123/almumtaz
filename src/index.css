@@ -119,7 +119,14 @@ body {
   transition: padding 250ms var(--ease);
 }
 .navbar.is-scrolled .navbar__inner { padding-top: 8px; padding-bottom: 8px; }
-.navbar__logo { display: flex; align-items: center; gap: 12px; }
+.navbar__logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+/* Was missing entirely after the redesign, so the language toggle and the
+   WhatsApp button sat flush together and wrapped onto two rows once the
+   bar ran out of room. */
+.navbar__actions {
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: nowrap; flex-shrink: 0;
+}
 .navbar__logo-plate {
   width: 40px; height: 40px; background: var(--ink); color: var(--paper);
   display: grid; place-items: center; font-family: var(--font-poster); font-size: 17px;
@@ -561,6 +568,15 @@ body {
 }
 
 /* ---------- responsive ---------- */
+/* Between ~940 and ~1240 the long company name, six nav links and the
+   action buttons together exceed the bar. Shed the logo subtitle and
+   tighten the link spacing before anything is forced to wrap. */
+@media (max-width: 1240px) {
+  .navbar__logo-sub { display: none; }
+  .navbar__links { gap: 18px; }
+  .navbar__links a { font-size: 12px; }
+}
+
 @media (max-width: 940px) {
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery__item:first-child { grid-column: span 2; grid-row: auto; }
