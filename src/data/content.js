@@ -37,6 +37,16 @@ export const HOURS = {
 };
 export const TIMEZONE = 'Asia/Riyadh';
 
+// "08:00" -> "8 AM" / "٨ ص"; "20:30" -> "8:30 PM"
+export function formatTime(hhmm, lang = 'en') {
+  const [h, m] = hhmm.split(':').map(Number);
+  const isAr = lang === 'ar';
+  const period = h >= 12 ? (isAr ? 'م' : 'PM') : (isAr ? 'ص' : 'AM');
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  const base = m === 0 ? `${h12}` : `${h12}:${String(m).padStart(2, '0')}`;
+  return `${base} ${period}`;
+}
+
 export const BRANDS = [
   'Mercedes-Benz', 'Volvo', 'MAN', 'Iveco', 'Scania', 'DAF', 'Renault',
   'Shacman', 'Sino Truck', 'Ashok Leyland', 'Tata', 'BPW', 'ROR', 'SAF',

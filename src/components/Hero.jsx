@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { buildWhatsAppUrl, WA_DEFAULT_MSG } from '../data/content';
 import { WhatsAppIcon, ArrowRightIcon } from './icons';
-import TruckSchematic from './TruckSchematic';
+import TruckSchematic, { SERVICE_POINTS } from './TruckSchematic';
 import OpenStatus from './OpenStatus';
 import { useLang } from '../i18n/LangContext';
 
@@ -85,6 +85,10 @@ export default function Hero() {
 
         <motion.div className="hero__schematic" variants={rise}>
           <TruckSchematic />
+          {/* Shown on phones only, where the SVG's own labels are too small */}
+          <ul className="hero__schematic-legend" aria-hidden="true">
+            {SERVICE_POINTS.map((p) => <li key={p}>{p}</li>)}
+          </ul>
         </motion.div>
 
         <motion.div className="hero__stats" variants={rise}>

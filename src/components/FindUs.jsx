@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CONTACT, MAPS_URL, HOURS } from '../data/content';
+import { CONTACT, MAPS_URL, HOURS, formatTime } from '../data/content';
 import { PinIcon, ArrowRightIcon } from './icons';
 import SectionHead from './SectionHead';
 import OpenStatus from './OpenStatus';
@@ -21,14 +21,14 @@ function groupedHours() {
   return rows;
 }
 
-export default function FindUs() {
-  const { t, isAr } = useLang();
+export default function FindUs({ index }) {
+  const { t, isAr, lang } = useLang();
   const days = isAr ? DAY_AR : DAY_KEYS;
 
   return (
     <section className="sec" id="findus">
       <div className="container">
-        <SectionHead index="07" title={t('findus.title')} sub={t('findus.sub')} />
+        <SectionHead index={index} title={t('findus.title')} sub={t('findus.sub')} />
 
         <div className="findus__grid">
           <motion.a
@@ -70,7 +70,7 @@ export default function FindUs() {
                     <td>
                       {row.ranges.length === 0
                         ? '—'
-                        : row.ranges.map(([a, b]) => `${a}–${b}`).join('  ·  ')}
+                        : row.ranges.map(([a, b]) => `${formatTime(a, lang)} – ${formatTime(b, lang)}`).join('  ·  ')}
                     </td>
                   </tr>
                 ))}

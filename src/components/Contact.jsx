@@ -11,7 +11,7 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export default function Contact() {
+export default function Contact({ index }) {
   const { t, isAr } = useLang();
   const [note, setNote] = useState('');
 
@@ -43,7 +43,7 @@ export default function Contact() {
   return (
     <section className="sec" id="contact">
       <div className="container">
-        <SectionHead index="08" title={t('contact.title')} />
+        <SectionHead index={index} title={t('contact.title')} />
 
         <div className="contact__grid">
           <motion.div

@@ -66,12 +66,13 @@ input, textarea { font: inherit; }
 }
 *:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
 
-/* grain — one subtle texture layer over the paper */
-body::before {
-  content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.32;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Grain texture. NOTE: this used to be a `position: fixed` overlay,
+   which forced a full-viewport repaint on every scroll frame and made
+   the whole page feel choppy. Painting it as a normal tiled background
+   on <body> scrolls with the content and costs nothing. */
+body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.022 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-#root { position: relative; z-index: 2; }
 
 .hazard {
   height: 10px;
@@ -161,7 +162,7 @@ body::before {
 .hero__meta .ar { direction: rtl; font-family: inherit; }
 .hero__title {
   font-family: var(--font-poster); text-transform: uppercase;
-  font-size: clamp(52px, 10.5vw, 148px); line-height: 0.92; letter-spacing: 0.005em;
+  font-size: clamp(44px, 8.6vw, 118px); line-height: 1.02; letter-spacing: 0.012em;
 }
 .hero__title span { display: block; }
 .hero__title-outline {
@@ -209,7 +210,13 @@ body::before {
   color: var(--faint-on-steel); text-align: center; margin-bottom: 18px;
 }
 .marquee { overflow: hidden; }
-.marquee__track { display: flex; width: max-content; align-items: center; animation: marqueeScroll 40s linear infinite; }
+.marquee__track {
+  display: flex; width: max-content; align-items: center;
+  animation: marqueeScroll 40s linear infinite;
+  /* keep the long strip on its own compositor layer so the scroll
+     thread never has to re-rasterise it */
+  will-change: transform; backface-visibility: hidden;
+}
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee__item {
@@ -367,13 +374,28 @@ body::before {
   white-space: nowrap;
 }
 
-/* ---------- language toggle ---------- */
+/* ---------- language toggle (segmented) ---------- */
 .langtoggle {
-  width: 40px; height: 40px; border: 2px solid var(--ink); border-radius: 2px;
-  font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--ink);
-  display: grid; place-items: center; transition: background 150ms var(--ease), color 150ms var(--ease);
+  display: inline-flex; border: 1.5px solid var(--ink); border-radius: 2px; overflow: hidden;
 }
-.langtoggle:hover { background: var(--ink); color: var(--paper); }
+.langtoggle button {
+  padding: 8px 12px; min-height: 38px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; color: var(--ink-soft); background: transparent;
+  transition: background 150ms var(--ease), color 150ms var(--ease);
+}
+.langtoggle button + button { border-inline-start: 1.5px solid var(--ink); }
+.langtoggle button:hover { color: var(--ink); background: var(--paper-2); }
+.langtoggle button.is-active { background: var(--ink); color: var(--paper); }
+
+/* ---------- truck schematic ---------- */
+.schem { width: 100%; height: auto; }
+.schem__label {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase; fill: var(--ink);
+}
+/* legend replaces the in-drawing labels on phones */
+.hero__schematic-legend { display: none; }
 
 /* ---------- open / closed status ---------- */
 .openstatus {
@@ -581,6 +603,24 @@ body::before {
   .gallery { grid-template-columns: 1fr; }
   .gallery__item:first-child { grid-column: auto; }
   .reviews { columns: 1; }
+
+  /* At phone width the 1200-unit viewBox scales down ~3.5x, so the
+     in-drawing labels would render at ~4px. Drop them and the leader
+     lines, keep the truck, and list the service points below instead. */
+  .schem__label, .schem__leader { display: none; }
+  .hero__schematic-legend {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px;
+    margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line-faint);
+  }
+  .hero__schematic-legend li {
+    position: relative; padding-inline-start: 15px;
+    font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft);
+  }
+  .hero__schematic-legend li::before {
+    content: ''; position: absolute; inset-inline-start: 0; top: 6px;
+    width: 7px; height: 7px; background: var(--orange);
+  }
   .wa-float { width: 54px; height: 54px; right: 16px; bottom: 16px; }
   .navbar__logo-name { font-size: 15px; }
   .navbar__logo-sub { display: none; }

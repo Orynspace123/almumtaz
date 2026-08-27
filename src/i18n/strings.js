@@ -8,6 +8,7 @@ export const STRINGS = {
     'nav.finder': 'Find your fix',
     'nav.services': 'Services',
     'nav.shop': 'The shop',
+    'nav.reviews': 'Reviews',
     'nav.company': 'Company',
     'nav.contact': 'Contact',
     'nav.whatsapp': 'WhatsApp',
@@ -99,7 +100,8 @@ export const STRINGS = {
 
     // company
     'company.title': 'The company.',
-    'company.lede': "Registered as Al Ikhtiar Al Mumtaz Trading Company — known at the counter simply as Al Mumtaz. We stock and fit spare parts across the brands that move Saudi's freight, and repair what a parts counter alone can't fix: hydraulics, brakes, turbos, gearboxes, diesel pumps. If it keeps a truck off the road, it's our problem now.",
+    'company.lede': "Registered as Al Ikhtiar Al Mumtaz Trading Company — known at the counter simply as Al Mumtaz. We stock and fit spare parts across the brands that move Saudi's freight, and repair what a parts counter alone can't fix: ",
+    'company.ledeStrong': "hydraulics, brakes, turbos, gearboxes, diesel pumps. If it keeps a truck off the road, it's our problem now.",
     'plate.title': '— COMPANY DATA PLATE —',
     'plate.tradeName': 'TRADING NAME',
     'plate.arName': 'ARABIC NAME',
@@ -159,6 +161,7 @@ export const STRINGS = {
     'nav.finder': 'اعثر على الحل',
     'nav.services': 'الخدمات',
     'nav.shop': 'المحل',
+    'nav.reviews': 'التقييمات',
     'nav.company': 'الشركة',
     'nav.contact': 'اتصل بنا',
     'nav.whatsapp': 'واتساب',
@@ -240,7 +243,8 @@ export const STRINGS = {
     'reviews.readAll': 'اقرأ جميع التقييمات على جوجل',
 
     'company.title': 'الشركة.',
-    'company.lede': 'مسجلة باسم شركة الاختيار الممتاز للتجارة — ومعروفة ببساطة باسم «الممتاز». نوفر ونركب قطع الغيار لماركات الشاحنات التي تنقل بضائع المملكة، ونصلح ما لا يكفيه محل قطع الغيار وحده: الهيدروليك، الفرامل، التربو، القير، ومضخات الديزل. إذا كان يعطل شاحنتك، فهو مسؤوليتنا.',
+    'company.lede': 'مسجلة باسم شركة الاختيار الممتاز للتجارة — ومعروفة ببساطة باسم «الممتاز». نوفر ونركب قطع الغيار لماركات الشاحنات التي تنقل بضائع المملكة، ونصلح ما لا يكفيه محل قطع الغيار وحده: ',
+    'company.ledeStrong': 'الهيدروليك، الفرامل، التربو، القير، ومضخات الديزل. إذا كان يعطل شاحنتك، فهو مسؤوليتنا.',
     'plate.title': '— بيانات الشركة —',
     'plate.tradeName': 'الاسم التجاري',
     'plate.arName': 'بالعربية',

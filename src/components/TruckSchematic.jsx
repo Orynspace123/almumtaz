@@ -32,12 +32,20 @@ const fadeLabel = {
 function Callout({ i, x, yFrom, yTo, label, below }) {
   const textY = below ? yTo + 20 : yTo - 12;
   return (
-    <g>
-      <motion.rect x={x - 3.5} y={yFrom - 3.5} width="7" height="7" fill={ORANGE} variants={fadeLabel} custom={i} />
-      <motion.line x1={x} y1={yFrom} x2={x} y2={yTo} stroke={INK} strokeWidth="1" strokeDasharray="4 4" variants={draw} custom={i + 10} />
+    <g className="schem__callout">
+      <motion.rect
+        className="schem__dot"
+        x={x - 3.5} y={yFrom - 3.5} width="7" height="7" fill={ORANGE}
+        variants={fadeLabel} custom={i}
+      />
+      <motion.line
+        className="schem__leader"
+        x1={x} y1={yFrom} x2={x} y2={yTo} stroke={INK} strokeWidth="1" strokeDasharray="4 4"
+        variants={draw} custom={i + 10}
+      />
       <motion.text
+        className="schem__label"
         x={x} y={textY} textAnchor="middle" variants={fadeLabel} custom={i}
-        style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', fill: INK }}
       >
         {label}
       </motion.text>
@@ -55,10 +63,22 @@ function Wheel({ cx, custom }) {
   );
 }
 
+// The five systems the callouts point at — also rendered as a plain
+// list on phones, where SVG labels in a 1200-wide viewBox would shrink
+// to a few unreadable pixels.
+export const SERVICE_POINTS = [
+  'Trailer spare parts',
+  'Air systems',
+  'Engine · Turbo',
+  'Hydraulics',
+  'Brakes · Chambers',
+];
+
 export default function TruckSchematic() {
   const reduce = useReducedMotion();
   return (
     <motion.svg
+      className="schem"
       viewBox="0 0 1200 400"
       role="img"
       aria-label="Schematic drawing of a truck and trailer with the workshop's service points labelled"

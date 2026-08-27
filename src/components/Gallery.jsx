@@ -25,7 +25,7 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export default function Gallery() {
+export default function Gallery({ index, onPhotos }) {
   const { t, isAr } = useLang();
   const [available, setAvailable] = useState([]);
 
@@ -42,17 +42,20 @@ export default function Gallery() {
           }),
       ),
     ).then((results) => {
-      if (!cancelled) setAvailable(results.filter(Boolean));
+      if (cancelled) return;
+      const found = results.filter(Boolean);
+      setAvailable(found);
+      onPhotos?.(found.length > 0);
     });
     return () => { cancelled = true; };
-  }, []);
+  }, [onPhotos]);
 
   if (available.length === 0) return null;
 
   return (
     <section className="sec" id="shop">
       <div className="container">
-        <SectionHead index="04" title={t('shop.title')} sub={t('shop.sub')} />
+        <SectionHead index={index} title={t('shop.title')} sub={t('shop.sub')} />
         <motion.div
           className="gallery"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}

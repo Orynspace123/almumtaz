@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { LangProvider, useLang } from './i18n/LangContext';
+import { TESTIMONIALS } from './data/content';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BrandMarquee from './components/BrandMarquee';
@@ -17,22 +19,40 @@ import MobileBar from './components/MobileBar';
 
 function Site() {
   const { t } = useLang();
+  // Gallery only renders once it finds at least one photo on disk, so it
+  // reports back here. Section numbers are then assigned over the
+  // sections that actually render — otherwise hiding one leaves a
+  // visible gap in the SEC.01…SEC.08 sequence.
+  const [hasPhotos, setHasPhotos] = useState(false);
+  const hasReviews = TESTIMONIALS.length > 0;
+
+  let n = 0;
+  const num = () => String(++n).padStart(2, '0');
+  const finderNo = num();
+  const servicesNo = num();
+  const whyNo = num();
+  const shopNo = hasPhotos ? num() : null;
+  const reviewsNo = hasReviews ? num() : null;
+  const companyNo = num();
+  const findusNo = num();
+  const contactNo = num();
+
   return (
     <>
       <a className="skip-link" href="#main">{t('skip')}</a>
-      <Navbar />
+      <Navbar showShopLink={hasPhotos} showReviewsLink={hasReviews} />
       <main id="main">
         <Hero />
         <BrandMarquee />
-        <Finder />
-        <Services />
-        <Why />
+        <Finder index={finderNo} />
+        <Services index={servicesNo} />
+        <Why index={whyNo} />
         <PartBrands />
-        <Gallery />
-        <Testimonials />
-        <About />
-        <FindUs />
-        <Contact />
+        <Gallery index={shopNo} onPhotos={setHasPhotos} />
+        <Testimonials index={reviewsNo} />
+        <About index={companyNo} />
+        <FindUs index={findusNo} />
+        <Contact index={contactNo} />
       </main>
       <Footer />
       <FloatingWhatsApp />

@@ -8,7 +8,7 @@ import { useLang } from '../i18n/LangContext';
 
 // The site's working tool, styled as a workshop job card: pick brand +
 // problem, it writes the WhatsApp message and sends it to the counter.
-export default function Finder() {
+export default function Finder({ index }) {
   const { t } = useLang();
   const [brand, setBrand] = useState(null);
   const [service, setService] = useState(null);
@@ -28,7 +28,7 @@ export default function Finder() {
   return (
     <section className="sec" id="finder">
       <div className="container">
-        <SectionHead index="01" title={t('finder.title')} sub={t('finder.sub')} />
+        <SectionHead index={index} title={t('finder.title')} sub={t('finder.sub')} />
 
         <motion.div
           className="finder__card"

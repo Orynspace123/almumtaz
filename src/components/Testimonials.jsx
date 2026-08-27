@@ -11,14 +11,14 @@ const rise = {
 
 // Real Google reviews only, quoted from the shop's listing. No star
 // rating is shown — see the note on TESTIMONIALS in content.js.
-export default function Testimonials() {
+export default function Testimonials({ index }) {
   const { t, isAr } = useLang();
   if (!TESTIMONIALS.length) return null;
 
   return (
     <section className="sec" id="reviews">
       <div className="container">
-        <SectionHead index="06" title={t('reviews.title')} sub={t('reviews.sub')} />
+        <SectionHead index={index} title={t('reviews.title')} sub={t('reviews.sub')} />
 
         <motion.div
           className="reviews"

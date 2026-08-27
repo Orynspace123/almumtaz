@@ -22,12 +22,12 @@ function SpecList({ items, startAt }) {
   );
 }
 
-export default function Services() {
+export default function Services({ index }) {
   const { t } = useLang();
   return (
     <section className="sec" id="services">
       <div className="container">
-        <SectionHead index="02" title={t('services.title')} sub={t('services.sub')} />
+        <SectionHead index={index} title={t('services.title')} sub={t('services.sub')} />
 
         <div className="services__cols">
           <div>

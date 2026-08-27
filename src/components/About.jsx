@@ -8,17 +8,19 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export default function About() {
+export default function About({ index }) {
   const { t, isAr } = useLang();
 
   return (
     <section className="sec" id="company">
       <div className="container">
-        <SectionHead index="05" title={t('company.title')} />
+        <SectionHead index={index} title={t('company.title')} />
         <div className="about__grid">
           <motion.div variants={rise} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
             <p className="about__ar">شركة الاختيار الممتاز للتجارة</p>
-            <p className="about__lede">{t('company.lede')}</p>
+            <p className="about__lede">
+              {t('company.lede')}<strong>{t('company.ledeStrong')}</strong>
+            </p>
           </motion.div>
 
           <motion.div

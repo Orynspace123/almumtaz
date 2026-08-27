@@ -6,19 +6,22 @@ import LangToggle from './LangToggle';
 import OpenStatus from './OpenStatus';
 import { useLang } from '../i18n/LangContext';
 
-const LINKS = [
-  { href: '#brands', key: 'nav.brands' },
-  { href: '#finder', key: 'nav.finder' },
-  { href: '#services', key: 'nav.services' },
-  { href: '#shop', key: 'nav.shop' },
-  { href: '#company', key: 'nav.company' },
-  { href: '#contact', key: 'nav.contact' },
-];
-
-export default function Navbar() {
+export default function Navbar({ showShopLink = false, showReviewsLink = false }) {
   const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  // Only link to sections that actually render — the photo and review
+  // sections hide themselves until they have content.
+  const LINKS = [
+    { href: '#brands', key: 'nav.brands' },
+    { href: '#finder', key: 'nav.finder' },
+    { href: '#services', key: 'nav.services' },
+    ...(showShopLink ? [{ href: '#shop', key: 'nav.shop' }] : []),
+    ...(showReviewsLink ? [{ href: '#reviews', key: 'nav.reviews' }] : []),
+    { href: '#company', key: 'nav.company' },
+    { href: '#contact', key: 'nav.contact' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);

@@ -7,14 +7,14 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export default function Why() {
+export default function Why({ index }) {
   const { t } = useLang();
   const rows = [1, 2, 3, 4];
 
   return (
     <section className="sec" id="why">
       <div className="container">
-        <SectionHead index="03" title={t('why.title')} />
+        <SectionHead index={index} title={t('why.title')} />
         <motion.div
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
           initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
